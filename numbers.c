@@ -34,5 +34,10 @@ int main(void)
 
   int sum_of_numbers = reduce(numbers, 0, &add);
   printf("Sum of numbers: %d\n", sum_of_numbers);
+
+  destroy_array(numbers);
+  destroy_array(squares_of_numbers);
+  destroy_array(evens);
+
   return 0;
 }

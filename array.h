@@ -22,6 +22,7 @@ int reduce(Array *src, int init, Reducer reducer);
 
 Array *create_array(int);
 Array *create_array_from(int *, int);
+void destroy_array(Array *);
 void display_array(Array *list);
 
 #endif

@@ -24,6 +24,9 @@ void test_map(void)
   Array *expected = create_array(0);
   Array *actual_1 = map(numbers, &square);
   display_assertion(assert_array(actual_1, expected), "should get empty array for empty array given");
+  destroy_array(numbers);
+  destroy_array(actual_1);
+  destroy_array(expected);
 
   Array *numbers_2 = create_array(1);
   numbers_2->array[0] = 2;
@@ -31,6 +34,9 @@ void test_map(void)
   Array *expected_2 = create_array(1);
   expected_2->array[0] = 4;
   display_assertion(assert_array(actual_2, expected_2), "should map a number for one value in the array");
+  destroy_array(numbers_2);
+  destroy_array(actual_2);
+  destroy_array(expected_2);
 
   Array *numbers_3 = create_array(2);
   numbers_3->array[0] = 2;
@@ -40,6 +46,9 @@ void test_map(void)
   expected_3->array[0] = 4;
   expected_3->array[1] = 9;
   display_assertion(assert_array(actual_3, expected_3), "should map two numbers for two values in the array");
+  destroy_array(numbers_3);
+  destroy_array(actual_3);
+  destroy_array(expected_3);
 
   Array *numbers_4 = create_array(4);
   numbers_4->array[0] = 2;
@@ -53,6 +62,9 @@ void test_map(void)
   expected_4->array[2] = 16;
   expected_4->array[3] = 25;
   display_assertion(assert_array(actual_4, expected_4), "should map all numbers for values more than two in the array");
+  destroy_array(numbers_4);
+  destroy_array(actual_4);
+  destroy_array(expected_4);
 }
 
 void test_filter(void)
@@ -62,6 +74,8 @@ void test_filter(void)
   Array *numbers_1 = create_array(0);
   Array *actual_1 = filter(numbers_1, &is_even);
   display_assertion(assert_array(actual_1, numbers_1), "should give empty array for empty array given");
+  destroy_array(numbers_1);
+  destroy_array(actual_1);
 
   Array *numbers_2 = create_array(1);
   numbers_2->array[0] = 2;
@@ -70,6 +84,9 @@ void test_filter(void)
   expected_2->array[0] = 2;
   char message_2[] = "should filter one element when only one value that satisfy is given";
   display_assertion(assert_array(actual_2, expected_2), message_2);
+  destroy_array(numbers_2);
+  destroy_array(actual_2);
+  destroy_array(expected_2);
 
   Array *numbers_3 = create_array(1);
   numbers_3->array[0] = 3;
@@ -77,6 +94,9 @@ void test_filter(void)
   Array *expected_3 = create_array(0);
   char message_3[] = "should filter no elements when only one value that don't satisfy is given";
   display_assertion(assert_array(actual_3, expected_3), message_3);
+  destroy_array(numbers_3);
+  destroy_array(actual_3);
+  destroy_array(expected_3);
 
   Array *numbers_4 = create_array(2);
   numbers_4->array[0] = 2;
@@ -86,6 +106,9 @@ void test_filter(void)
   expected_4->array[0] = 2;
   char message_4[] = "should filter the elements that satisfy for two elements in the list";
   display_assertion(assert_array(actual_4, expected_4), message_4);
+  destroy_array(numbers_4);
+  destroy_array(actual_4);
+  destroy_array(expected_4);
 
   Array *numbers_5 = create_array(4);
   numbers_5->array[0] = 2;
@@ -98,6 +121,9 @@ void test_filter(void)
   expected_5->array[1] = 4;
   char message_5[] = "should filter the elements that satisfy for more than two elements in the list";
   display_assertion(assert_array(actual_5, expected_5), message_5);
+  destroy_array(numbers_5);
+  destroy_array(actual_5);
+  destroy_array(expected_5);
 
   Array *numbers_6 = create_array(4);
   numbers_6->array[0] = 2;
@@ -112,6 +138,9 @@ void test_filter(void)
   expected_6->array[3] = 8;
   char message_6[] = "should filter all the elements when all the elements satisfy";
   display_assertion(assert_array(actual_6, expected_6), message_6);
+  destroy_array(numbers_6);
+  destroy_array(actual_6);
+  destroy_array(expected_6);
 
   Array *numbers_7 = create_array(4);
   numbers_7->array[0] = 1;
@@ -122,6 +151,9 @@ void test_filter(void)
   Array *expected_7 = create_array(0);
   char message_7[] = "should filter no elements when all the elements doesn't satisfy";
   display_assertion(assert_array(actual_7, expected_7), message_7);
+  destroy_array(numbers_7);
+  destroy_array(actual_7);
+  destroy_array(expected_7);
 }
 
 void test_reduce(void)
@@ -131,23 +163,27 @@ void test_reduce(void)
   Array *numbers_1 = create_array(0);
   int actual_1 = reduce(numbers_1, 5, &add);
   display_assertion(assert(actual_1, 5), "should give initial context for empty array given");
+  destroy_array(numbers_1);
 
   Array *numbers_2 = create_array(1);
   numbers_2->array[0] = 5;
   int actual_2 = reduce(numbers_2, 0, &add);
   display_assertion(assert(actual_2, 5), "should add initial value and element for one value given");
+  destroy_array(numbers_2);
 
   Array *numbers_3 = create_array(2);
   numbers_3->array[0] = 5;
   numbers_3->array[1] = 10;
   int actual_3 = reduce(numbers_3, 0, &add);
   display_assertion(assert(actual_3, 15), "should add values for two values given");
+  destroy_array(numbers_3);
 
   Array *numbers_4 = create_array(2);
   numbers_4->array[0] = 5;
   numbers_4->array[1] = 10;
   int actual_4 = reduce(numbers_4, 5, &add);
   display_assertion(assert(actual_4, 20), "should add values with initial value for two values given");
+  destroy_array(numbers_4);
 
   Array *numbers_5 = create_array(5);
   numbers_5->array[0] = 5;
@@ -157,6 +193,7 @@ void test_reduce(void)
   numbers_5->array[4] = 40;
   int actual_5 = reduce(numbers_5, 0, &add);
   display_assertion(assert(actual_5, 105), "should add values for more than two values given");
+  destroy_array(numbers_5);
 
   Array *numbers_6 = create_array(5);
   numbers_6->array[0] = 5;
@@ -166,6 +203,7 @@ void test_reduce(void)
   numbers_6->array[4] = 40;
   int actual_6 = reduce(numbers_6, 5, &add);
   display_assertion(assert(actual_6, 110), "should add values with initial context for more than two values given");
+  destroy_array(numbers_6);
 }
 
 int main(void)

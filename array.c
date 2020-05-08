@@ -18,6 +18,12 @@ Array *create_array_from(int *list, int length)
   return new_array;
 }
 
+void destroy_array(Array *list)
+{
+  free(list->array);
+  free(list);
+}
+
 void display_array(Array *list)
 {
   for (int i = 0; i < list->length; i++)
