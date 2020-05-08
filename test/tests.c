@@ -11,7 +11,7 @@ void test_map(void)
   printf("map\n");
 
   Array *numbers = create_array(0);
-  Array *expected = create_array(1);
+  Array *expected = create_array(0);
 
   Array *actual = map(numbers, &square);
   display_assertion(assert_array(actual, expected), "should get empty array for empty array given");
