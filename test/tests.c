@@ -129,28 +129,43 @@ void test_reduce(void)
   printf("reduce\n");
 
   Array *numbers_1 = create_array(0);
-  int actual_1 = reduce(numbers_1, 0, &add);
-  display_assertion(assert(actual_1, 0), "should give initial context for empty array given");
+  int actual_1 = reduce(numbers_1, 5, &add);
+  display_assertion(assert(actual_1, 5), "should give initial context for empty array given");
 
   Array *numbers_2 = create_array(1);
   numbers_2->array[0] = 5;
   int actual_2 = reduce(numbers_2, 0, &add);
-  display_assertion(assert(actual_2, 5), "should give the reduced value for one value given");
+  display_assertion(assert(actual_2, 5), "should add initial value and element for one value given");
 
   Array *numbers_3 = create_array(2);
   numbers_3->array[0] = 5;
   numbers_3->array[1] = 10;
   int actual_3 = reduce(numbers_3, 0, &add);
-  display_assertion(assert(actual_3, 15), "should give the reduced value for two values given");
+  display_assertion(assert(actual_3, 15), "should add values for two values given");
 
-  Array *numbers_4 = create_array(5);
+  Array *numbers_4 = create_array(2);
   numbers_4->array[0] = 5;
   numbers_4->array[1] = 10;
-  numbers_4->array[2] = 20;
-  numbers_4->array[3] = 30;
-  numbers_4->array[4] = 40;
-  int actual_4 = reduce(numbers_4, 0, &add);
-  display_assertion(assert(actual_4, 105), "should give the reduced value for more than two values given");
+  int actual_4 = reduce(numbers_4, 5, &add);
+  display_assertion(assert(actual_4, 20), "should add values with initial value for two values given");
+
+  Array *numbers_5 = create_array(5);
+  numbers_5->array[0] = 5;
+  numbers_5->array[1] = 10;
+  numbers_5->array[2] = 20;
+  numbers_5->array[3] = 30;
+  numbers_5->array[4] = 40;
+  int actual_5 = reduce(numbers_5, 0, &add);
+  display_assertion(assert(actual_5, 105), "should add values for more than two values given");
+
+  Array *numbers_6 = create_array(5);
+  numbers_6->array[0] = 5;
+  numbers_6->array[1] = 10;
+  numbers_6->array[2] = 20;
+  numbers_6->array[3] = 30;
+  numbers_6->array[4] = 40;
+  int actual_6 = reduce(numbers_6, 5, &add);
+  display_assertion(assert(actual_6, 110), "should add values with initial context for more than two values given");
 }
 
 int main(void)
