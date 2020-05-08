@@ -11,6 +11,11 @@ Bool is_even(int number)
   return number % 2 == 0;
 }
 
+int add(int num1, int num2)
+{
+  return num1 + num2;
+}
+
 void test_map(void)
 {
   printf("map\n");
@@ -119,10 +124,40 @@ void test_filter(void)
   display_assertion(assert_array(actual_7, expected_7), message_7);
 }
 
+void test_reduce(void)
+{
+  printf("reduce\n");
+
+  Array *numbers_1 = create_array(0);
+  int actual_1 = reduce(numbers_1, 0, &add);
+  display_assertion(assert(actual_1, 0), "should give initial context for empty array given");
+
+  Array *numbers_2 = create_array(1);
+  numbers_2->array[0] = 5;
+  int actual_2 = reduce(numbers_2, 0, &add);
+  display_assertion(assert(actual_2, 5), "should give the reduced value for one value given");
+
+  Array *numbers_3 = create_array(2);
+  numbers_3->array[0] = 5;
+  numbers_3->array[1] = 10;
+  int actual_3 = reduce(numbers_3, 0, &add);
+  display_assertion(assert(actual_3, 15), "should give the reduced value for two values given");
+
+  Array *numbers_4 = create_array(5);
+  numbers_4->array[0] = 5;
+  numbers_4->array[1] = 10;
+  numbers_4->array[2] = 20;
+  numbers_4->array[3] = 30;
+  numbers_4->array[4] = 40;
+  int actual_4 = reduce(numbers_4, 0, &add);
+  display_assertion(assert(actual_4, 105), "should give the reduced value for more than two values given");
+}
+
 int main(void)
 {
   test_map();
   test_filter();
+  test_reduce();
   display_passing_count();
   return 0;
 }
