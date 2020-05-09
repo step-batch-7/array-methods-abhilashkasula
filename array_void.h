@@ -26,5 +26,6 @@ Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer);
 ArrayVoid_ptr create_void_array(int length);
 void destroy_void_array(ArrayVoid_ptr list);
 void display_void_array(ArrayVoid_ptr void_array, void (*display_data)(void *));
+ArrayVoid_ptr create_void_array_from(Object *array, int length);
 
 #endif
