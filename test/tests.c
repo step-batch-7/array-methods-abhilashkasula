@@ -26,6 +26,37 @@ Object square_void(Object data)
   return square;
 }
 
+Object conver_to_lowercase(Object data)
+{
+  char *lowercase = malloc(sizeof(char));
+  *lowercase = *(char *)data + 32;
+  return lowercase;
+}
+
+Bool assert_int(Object data_1, Object data_2)
+{
+  return *(Int_ptr)data_1 == *(Int_ptr)data_2;
+}
+
+Bool assert_char(Object data_1, Object data_2)
+{
+  return *(char *)data_1 == *(char *)data_2;
+}
+
+Object create_int(int value)
+{
+  Int_ptr number = malloc(sizeof(int));
+  *number = value;
+  return (Object)number;
+}
+
+Object create_char(char value)
+{
+  char *alphabet = malloc(sizeof(char));
+  *alphabet = value;
+  return (Object)alphabet;
+}
+
 void test_map(void)
 {
   printf("map\n");
@@ -216,16 +247,9 @@ void test_reduce(void)
   destroy_array(numbers_6);
 }
 
-Bool assert_int(Object data_1, Object data_2)
+void display_char(void *data)
 {
-  return *(Int_ptr)data_1 == *(Int_ptr)data_2;
-}
-
-Object create_int(int value)
-{
-  Int_ptr number = malloc(sizeof(int));
-  *number = value;
-  return (Object)number;
+  printf("%c ", *(char *)data);
 }
 
 void test_map_void(void)
@@ -279,6 +303,19 @@ void test_map_void(void)
   destroy_void_array(numbers_4);
   destroy_void_array(actual_4);
   destroy_void_array(expected_4);
+
+  ArrayVoid_ptr alphabets = create_void_array(2);
+  alphabets->array[0] = create_char('A');
+  alphabets->array[1] = create_char('B');
+  ArrayVoid_ptr actual_alphabets = map_void(alphabets, &conver_to_lowercase);
+  ArrayVoid_ptr expected_alphabets = create_void_array(2);
+  expected_alphabets->array[0] = create_char('a');
+  expected_alphabets->array[1] = create_char('b');
+  char message_5[] = "should give mapped values for alphabets";
+  display_assertion(assert_array_void(actual_alphabets, expected_alphabets, &assert_char), message_5);
+  destroy_void_array(alphabets);
+  destroy_void_array(actual_alphabets);
+  destroy_void_array(expected_alphabets);
 }
 
 int main(void)
