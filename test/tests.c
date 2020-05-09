@@ -62,6 +62,17 @@ Bool is_even_void(Object data)
   return (*(Int_ptr)data) % 2 == 0;
 }
 
+Bool is_letter_abc(Object data)
+{
+  char letter = *(Char_ptr)data;
+
+  if (letter == 'a' || letter == 'b' || letter == 'c')
+  {
+    return True;
+  }
+  return False;
+}
+
 void test_map(void)
 {
   printf("map\n");
@@ -371,6 +382,19 @@ void test_filter_void(void)
   display_assertion(assert_array_void(actual_4, expected_4, &assert_int), message_4);
   destroy_void_array(numbers_4);
   destroy_void_array(expected_4);
+
+  ArrayVoid_ptr alphabets = create_void_array(3);
+  alphabets->array[0] = create_char('a');
+  alphabets->array[1] = create_char('b');
+  alphabets->array[2] = create_char('f');
+  ArrayVoid_ptr actual_5 = filter_void(alphabets, &is_letter_abc);
+  ArrayVoid_ptr expected_5 = create_void_array(2);
+  expected_5->array[0] = create_char('a');
+  expected_5->array[1] = create_char('b');
+  char message_5[] = "should filter all values that satisfy for alphabets";
+  display_assertion(assert_array_void(actual_5, expected_5, &assert_char), message_5);
+  destroy_void_array(alphabets);
+  destroy_void_array(expected_5);
 }
 
 int main(void)
