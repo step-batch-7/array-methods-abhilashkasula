@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "array_void.h"
 
 ArrayVoid_ptr create_void_array(int length)
@@ -7,6 +8,13 @@ ArrayVoid_ptr create_void_array(int length)
   ArrayVoid_ptr new_void_array = malloc(sizeof(ArrayVoid));
   new_void_array->length = length;
   new_void_array->array = malloc(sizeof(void *) * length);
+  return new_void_array;
+}
+
+ArrayVoid_ptr create_void_array_from(Object *array, int length)
+{
+  ArrayVoid_ptr new_void_array = create_void_array(length);
+  memcpy(new_void_array->array, array, sizeof(Object) * length);
   return new_void_array;
 }
 
@@ -40,4 +48,21 @@ ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
   }
 
   return new_void_array;
+}
+
+ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
+{
+  Object filtered[src->length];
+  int length = 0;
+
+  for (int i = 0; i < src->length; i++)
+  {
+    if ((*predicate)(src->array[i]))
+    {
+      filtered[length] = src->array[i];
+      length++;
+    }
+  }
+
+  return create_void_array_from(filtered, length);
 }
