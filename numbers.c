@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "array.h"
+#include "array_void.h"
 
 int square(int number)
 {
@@ -14,6 +16,18 @@ Bool is_even(int number)
 int add(int num1, int num2)
 {
   return num1 + num2;
+}
+
+Object square_void(Object data)
+{
+  Int_ptr result = malloc(sizeof(int));
+  *result = *(Int_ptr)data * *(Int_ptr)data;
+  return (Object)result;
+}
+
+void display_int(void *data)
+{
+  printf("%d ", *(Int_ptr)data);
 }
 
 int main(void)
@@ -38,6 +52,19 @@ int main(void)
   destroy_array(numbers);
   destroy_array(squares_of_numbers);
   destroy_array(evens);
+
+  ArrayVoid_ptr new_void_array = create_void_array(2);
+
+  Int_ptr number_1 = malloc(sizeof(int));
+  *number_1 = 2;
+  Int_ptr number_2 = malloc(sizeof(int));
+  *number_2 = 3;
+
+  new_void_array->array[0] = (void *)number_1;
+  new_void_array->array[1] = (void *)number_2;
+
+  ArrayVoid_ptr mapped = map_void(new_void_array, &square_void);
+  display_void_array(mapped, &display_int);
 
   return 0;
 }
