@@ -221,6 +221,13 @@ Bool assert_int(Object data_1, Object data_2)
   return *(Int_ptr)data_1 == *(Int_ptr)data_2;
 }
 
+Object create_int(int value)
+{
+  Int_ptr number = malloc(sizeof(int));
+  *number = value;
+  return (Object)number;
+}
+
 void test_map_void(void)
 {
   printf("map_void\n");
@@ -229,6 +236,49 @@ void test_map_void(void)
   ArrayVoid_ptr actual_1 = map_void(numbers_1, &square_void);
   char message[] = "should give empty array for empty array given";
   display_assertion(assert_array_void(actual_1, numbers_1, &assert_int), message);
+  destroy_void_array(numbers_1);
+  destroy_void_array(actual_1);
+
+  ArrayVoid_ptr numbers_2 = create_void_array(1);
+  numbers_2->array[0] = create_int(5);
+  ArrayVoid_ptr actual_2 = map_void(numbers_2, &square_void);
+  ArrayVoid_ptr expected_2 = create_void_array(1);
+  expected_2->array[0] = create_int(25);
+  char message_2[] = "should give one value mapped for one element given";
+  display_assertion(assert_array_void(actual_2, expected_2, &assert_int), message_2);
+  destroy_void_array(numbers_2);
+  destroy_void_array(actual_2);
+  destroy_void_array(expected_2);
+
+  ArrayVoid_ptr numbers_3 = create_void_array(2);
+  numbers_3->array[0] = create_int(5);
+  numbers_3->array[1] = create_int(4);
+  ArrayVoid_ptr actual_3 = map_void(numbers_3, &square_void);
+  ArrayVoid_ptr expected_3 = create_void_array(2);
+  expected_3->array[0] = create_int(25);
+  expected_3->array[1] = create_int(16);
+  char message_3[] = "should give mapped values for two elements given";
+  display_assertion(assert_array_void(actual_3, expected_3, &assert_int), message_3);
+  destroy_void_array(numbers_3);
+  destroy_void_array(actual_3);
+  destroy_void_array(expected_3);
+
+  ArrayVoid_ptr numbers_4 = create_void_array(4);
+  numbers_4->array[0] = create_int(5);
+  numbers_4->array[1] = create_int(4);
+  numbers_4->array[2] = create_int(3);
+  numbers_4->array[3] = create_int(2);
+  ArrayVoid_ptr actual_4 = map_void(numbers_4, &square_void);
+  ArrayVoid_ptr expected_4 = create_void_array(4);
+  expected_4->array[0] = create_int(25);
+  expected_4->array[1] = create_int(16);
+  expected_4->array[2] = create_int(9);
+  expected_4->array[3] = create_int(4);
+  char message_4[] = "should give mapped values for more than two elements given";
+  display_assertion(assert_array_void(actual_4, expected_4, &assert_int), message_4);
+  destroy_void_array(numbers_4);
+  destroy_void_array(actual_4);
+  destroy_void_array(expected_4);
 }
 
 int main(void)
