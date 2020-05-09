@@ -57,6 +57,11 @@ Object create_char(char value)
   return (Object)alphabet;
 }
 
+Bool is_even_void(Object data)
+{
+  return (*(Int_ptr)data) % 2 == 0;
+}
+
 void test_map(void)
 {
   printf("map\n");
@@ -318,12 +323,63 @@ void test_map_void(void)
   destroy_void_array(expected_alphabets);
 }
 
+void test_filter_void(void)
+{
+  printf("filter_void\n");
+
+  ArrayVoid_ptr numbers_1 = create_void_array(0);
+  ArrayVoid_ptr actual_1 = filter_void(numbers_1, &is_even_void);
+  char message_1[] = "should give empty array for empty array given";
+  display_assertion(assert_array_void(actual_1, numbers_1, &assert_int), message_1);
+  destroy_void_array(numbers_1);
+  destroy_void_array(actual_1);
+
+  ArrayVoid_ptr numbers_2 = create_void_array(3);
+  numbers_2->array[0] = create_int(2);
+  numbers_2->array[1] = create_int(3);
+  numbers_2->array[2] = create_int(4);
+  ArrayVoid_ptr actual_2 = filter_void(numbers_2, &is_even_void);
+  ArrayVoid_ptr expected_2 = create_void_array(2);
+  expected_2->array[0] = create_int(2);
+  expected_2->array[1] = create_int(4);
+  char message_2[] = "should give only filtered values for the given numbers";
+  display_assertion(assert_array_void(actual_2, expected_2, &assert_int), message_2);
+  destroy_void_array(numbers_2);
+  destroy_void_array(expected_2);
+
+  ArrayVoid_ptr numbers_3 = create_void_array(3);
+  numbers_3->array[0] = create_int(3);
+  numbers_3->array[1] = create_int(5);
+  numbers_3->array[2] = create_int(7);
+  ArrayVoid_ptr actual_3 = filter_void(numbers_3, &is_even_void);
+  ArrayVoid_ptr expected_3 = create_void_array(0);
+  char message_3[] = "should give empty array for no numbers satisfy";
+  display_assertion(assert_array_void(actual_3, expected_3, &assert_int), message_3);
+  destroy_void_array(numbers_3);
+  destroy_void_array(expected_3);
+
+  ArrayVoid_ptr numbers_4 = create_void_array(3);
+  numbers_4->array[0] = create_int(2);
+  numbers_4->array[1] = create_int(4);
+  numbers_4->array[2] = create_int(8);
+  ArrayVoid_ptr actual_4 = filter_void(numbers_4, &is_even_void);
+  ArrayVoid_ptr expected_4 = create_void_array(3);
+  expected_4->array[0] = create_int(2);
+  expected_4->array[1] = create_int(4);
+  expected_4->array[2] = create_int(8);
+  char message_4[] = "should filter all values for all the numbers satisfy";
+  display_assertion(assert_array_void(actual_4, expected_4, &assert_int), message_4);
+  destroy_void_array(numbers_4);
+  destroy_void_array(expected_4);
+}
+
 int main(void)
 {
   test_map();
   test_filter();
   test_reduce();
   test_map_void();
+  test_filter_void();
   display_passing_count();
   return 0;
 }

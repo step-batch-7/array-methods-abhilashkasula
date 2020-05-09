@@ -123,8 +123,8 @@ void perform_array_void_methods(void)
   printf("Sum: %d\n", *(Int_ptr)sum);
 
   destroy_void_array(mapped);
-  destroy_void_array(filtered_alphabets);
-  destroy_void_array(filtered_numbers);
+  destroy_void_array(new_void_array);
+  destroy_void_array(alphabets);
 }
 
 int main(void)
