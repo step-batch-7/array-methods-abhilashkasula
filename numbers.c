@@ -65,6 +65,7 @@ int main(void)
 
   ArrayVoid_ptr mapped = map_void(new_void_array, &square_void);
   display_void_array(mapped, &display_int);
+  destroy_void_array(mapped);
 
   return 0;
 }

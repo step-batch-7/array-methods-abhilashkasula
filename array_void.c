@@ -10,6 +10,17 @@ ArrayVoid_ptr create_void_array(int length)
   return new_void_array;
 }
 
+void destroy_void_array(ArrayVoid_ptr list)
+{
+  for (int i = 0; i < list->length; i++)
+  {
+    free(list->array[i]);
+  }
+
+  free(list->array);
+  free(list);
+}
+
 void display_void_array(ArrayVoid_ptr void_array, Displayer display_data)
 {
   for (int i = 0; i < void_array->length; i++)

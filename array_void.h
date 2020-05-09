@@ -24,6 +24,7 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate);
 Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer);
 
 ArrayVoid_ptr create_void_array(int length);
+void destroy_void_array(ArrayVoid_ptr list);
 void display_void_array(ArrayVoid_ptr void_array, void (*display_data)(void *));
 
 #endif
