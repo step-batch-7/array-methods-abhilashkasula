@@ -32,7 +32,7 @@ void display_int(Object data)
 
 void display_char(Object data)
 {
-  printf("%c ", *(char *)data);
+  printf("%c ", *(Char_ptr)data);
 }
 
 Bool is_even_void(Object data)
@@ -42,7 +42,7 @@ Bool is_even_void(Object data)
 
 Bool is_letter_abc(Object data)
 {
-  char letter = *(char *)data;
+  char letter = *(Char_ptr)data;
   if (letter == 'a' || letter == 'b' || letter == 'c')
   {
     return True;
@@ -87,11 +87,11 @@ void perform_array_void_methods(void)
   *number_1 = 2;
   Int_ptr number_2 = malloc(sizeof(int));
   *number_2 = 3;
-  char *letter_1 = malloc(sizeof(char));
+  Char_ptr letter_1 = malloc(sizeof(char));
   *letter_1 = 'a';
-  char *letter_2 = malloc(sizeof(char));
+  Char_ptr letter_2 = malloc(sizeof(char));
   *letter_2 = 'b';
-  char *letter_3 = malloc(sizeof(char));
+  Char_ptr letter_3 = malloc(sizeof(char));
   *letter_3 = 'e';
 
   new_void_array->array[0] = (Object)number_1;

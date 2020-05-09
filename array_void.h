@@ -10,6 +10,7 @@ typedef Object (*ReducerVoid)(Object, Object);
 
 typedef void (*Displayer)(Object);
 typedef int *Int_ptr;
+typedef char *Char_ptr;
 
 typedef struct
 {

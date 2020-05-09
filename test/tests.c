@@ -28,8 +28,8 @@ Object square_void(Object data)
 
 Object conver_to_lowercase(Object data)
 {
-  char *lowercase = malloc(sizeof(char));
-  *lowercase = *(char *)data + 32;
+  Char_ptr lowercase = malloc(sizeof(char));
+  *lowercase = *(Char_ptr)data + 32;
   return lowercase;
 }
 
@@ -40,7 +40,7 @@ Bool assert_int(Object data_1, Object data_2)
 
 Bool assert_char(Object data_1, Object data_2)
 {
-  return *(char *)data_1 == *(char *)data_2;
+  return *(Char_ptr)data_1 == *(Char_ptr)data_2;
 }
 
 Object create_int(int value)
@@ -52,7 +52,7 @@ Object create_int(int value)
 
 Object create_char(char value)
 {
-  char *alphabet = malloc(sizeof(char));
+  Char_ptr alphabet = malloc(sizeof(char));
   *alphabet = value;
   return (Object)alphabet;
 }
@@ -249,7 +249,7 @@ void test_reduce(void)
 
 void display_char(void *data)
 {
-  printf("%c ", *(char *)data);
+  printf("%c ", *(Char_ptr)data);
 }
 
 void test_map_void(void)
