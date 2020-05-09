@@ -50,6 +50,20 @@ Bool is_letter_abc(Object data)
   return False;
 }
 
+Object create_int(int value)
+{
+  int *number = malloc(sizeof(int));
+  *number = value;
+  return (Object)number;
+}
+
+Object create_char(char value)
+{
+  char *letter = malloc(sizeof(char));
+  *letter = value;
+  return (Object)letter;
+}
+
 void perform_array_methods(void)
 {
   printf("array methods\n");
@@ -81,24 +95,13 @@ void perform_array_void_methods(void)
   printf("\narray void methods\n");
 
   ArrayVoid_ptr new_void_array = create_void_array(2);
+  new_void_array->array[0] = create_int(2);
+  new_void_array->array[1] = create_int(3);
+
   ArrayVoid_ptr alphabets = create_void_array(3);
-
-  Int_ptr number_1 = malloc(sizeof(int));
-  *number_1 = 2;
-  Int_ptr number_2 = malloc(sizeof(int));
-  *number_2 = 3;
-  Char_ptr letter_1 = malloc(sizeof(char));
-  *letter_1 = 'a';
-  Char_ptr letter_2 = malloc(sizeof(char));
-  *letter_2 = 'b';
-  Char_ptr letter_3 = malloc(sizeof(char));
-  *letter_3 = 'e';
-
-  new_void_array->array[0] = (Object)number_1;
-  new_void_array->array[1] = (Object)number_2;
-  alphabets->array[0] = (Object)letter_1;
-  alphabets->array[1] = (Object)letter_2;
-  alphabets->array[2] = (Object)letter_3;
+  alphabets->array[0] = create_char('a');
+  alphabets->array[1] = create_char('b');
+  alphabets->array[2] = create_char('e');
 
   ArrayVoid_ptr mapped = map_void(new_void_array, &square_void);
   display_void_array(mapped, &display_int);
