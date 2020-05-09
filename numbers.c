@@ -30,8 +30,10 @@ void display_int(Object data)
   printf("%d ", *(Int_ptr)data);
 }
 
-int main(void)
+void perform_array_methods(void)
 {
+  printf("array methods\n");
+
   Array *numbers = create_array(6);
   numbers->array[0] = 10;
   numbers->array[1] = 11;
@@ -52,6 +54,11 @@ int main(void)
   destroy_array(numbers);
   destroy_array(squares_of_numbers);
   destroy_array(evens);
+}
+
+void perform_array_void_methods(void)
+{
+  printf("\narray void methods\n");
 
   ArrayVoid_ptr new_void_array = create_void_array(2);
 
@@ -66,6 +73,11 @@ int main(void)
   ArrayVoid_ptr mapped = map_void(new_void_array, &square_void);
   display_void_array(mapped, &display_int);
   destroy_void_array(mapped);
+}
 
+int main(void)
+{
+  perform_array_methods();
+  perform_array_void_methods();
   return 0;
 }
