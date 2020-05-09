@@ -73,6 +73,12 @@ Bool is_letter_abc(Object data)
   return False;
 }
 
+Object add_void(Object context, Object data)
+{
+  *(Int_ptr)context = *(Int_ptr)context + *(Int_ptr)data;
+  return context;
+}
+
 void test_map(void)
 {
   printf("map\n");
@@ -397,6 +403,47 @@ void test_filter_void(void)
   destroy_void_array(expected_5);
 }
 
+void test_reduce_void(void)
+{
+  printf("reduce_void\n");
+
+  ArrayVoid_ptr numbers_1 = create_void_array(0);
+  Object init_1 = create_int(2);
+  Object actual_1 = reduce_void(numbers_1, init_1, &add_void);
+  Object expected_1 = create_int(2);
+  char message_1[] = "should give the initial context for empty array";
+  display_assertion(assert_object(actual_1, expected_1, &assert_int), message_1);
+  destroy_void_array(numbers_1);
+  free(expected_1);
+  free(actual_1);
+
+  ArrayVoid_ptr numbers_2 = create_void_array(3);
+  numbers_2->array[0] = create_int(2);
+  numbers_2->array[1] = create_int(3);
+  numbers_2->array[2] = create_int(4);
+  Object init_2 = create_int(0);
+  Object actual_2 = reduce_void(numbers_2, init_2, &add_void);
+  Object expected_2 = create_int(9);
+  char message_2[] = "should add all the values for given numbers";
+  display_assertion(assert_object(actual_2, expected_2, &assert_int), message_2);
+  destroy_void_array(numbers_2);
+  free(expected_2);
+  free(actual_2);
+
+  ArrayVoid_ptr numbers_3 = create_void_array(3);
+  numbers_3->array[0] = create_int(2);
+  numbers_3->array[1] = create_int(3);
+  numbers_3->array[2] = create_int(4);
+  Object init_3 = create_int(5);
+  Object actual_3 = reduce_void(numbers_3, init_3, &add_void);
+  Object expected_3 = create_int(14);
+  char message_3[] = "should add all the values with initial context for given numbers";
+  display_assertion(assert_object(actual_3, expected_3, &assert_int), message_3);
+  destroy_void_array(numbers_3);
+  free(expected_3);
+  free(actual_3);
+}
+
 int main(void)
 {
   test_map();
@@ -404,6 +451,7 @@ int main(void)
   test_reduce();
   test_map_void();
   test_filter_void();
+  test_reduce_void();
   display_passing_count();
   return 0;
 }

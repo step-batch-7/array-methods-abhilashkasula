@@ -37,10 +37,15 @@ Bool assert_array_void(ArrayVoid_ptr array_1, ArrayVoid_ptr array_2, AssertOn as
 
   for (int i = 0; i < array_1->length; i++)
   {
-    assertion_status &= assert_data(array_1->array[i], array_2->array[i]);
+    assertion_status &= (*assert_data)(array_1->array[i], array_2->array[i]);
   }
 
   return assertion_status;
+}
+
+Bool assert_object(Object data_1, Object data_2, AssertOn assert_data)
+{
+  return (*assert_data)(data_1, data_2);
 }
 
 void display_assertion(Bool assertion_status, char *message)

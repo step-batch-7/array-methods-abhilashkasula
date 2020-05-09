@@ -18,5 +18,6 @@ void display_passing_count(void);
 Bool assert_array(Array *, Array *);
 Bool assert(int, int);
 Bool assert_array_void(ArrayVoid_ptr, ArrayVoid_ptr, AssertOn);
+Bool assert_object(Object, Object, AssertOn);
 
 #endif
