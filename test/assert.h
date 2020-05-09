@@ -1,7 +1,9 @@
-#include "../array.h"
 
 #ifndef __ASSERT_H
 #define __ASSERT_H
+
+#include "../array.h"
+#include "../array_void.h"
 
 #define RESET "\033[0m"
 #define GREEN "\033[32m"

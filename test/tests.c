@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "assert.h"
+#include "../array.h"
+#include "../array_void.h"
 
 int square(int number)
 {
