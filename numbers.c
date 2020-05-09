@@ -25,7 +25,7 @@ Object square_void(Object data)
   return (Object)result;
 }
 
-void display_int(void *data)
+void display_int(Object data)
 {
   printf("%d ", *(Int_ptr)data);
 }
@@ -60,8 +60,8 @@ int main(void)
   Int_ptr number_2 = malloc(sizeof(int));
   *number_2 = 3;
 
-  new_void_array->array[0] = (void *)number_1;
-  new_void_array->array[1] = (void *)number_2;
+  new_void_array->array[0] = (Object)number_1;
+  new_void_array->array[1] = (Object)number_2;
 
   ArrayVoid_ptr mapped = map_void(new_void_array, &square_void);
   display_void_array(mapped, &display_int);
