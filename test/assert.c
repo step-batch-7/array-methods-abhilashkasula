@@ -26,6 +26,23 @@ Bool assert_array(Array *array_1, Array *array_2)
   return assertion_status;
 }
 
+Bool assert_array_void(ArrayVoid_ptr array_1, ArrayVoid_ptr array_2, AssertOn assert_data)
+{
+  if (array_1->length != array_2->length)
+  {
+    return False;
+  }
+
+  Bool assertion_status = True;
+
+  for (int i = 0; i < array_1->length; i++)
+  {
+    assertion_status &= assert_data(array_1->array[i], array_2->array[i]);
+  }
+
+  return assertion_status;
+}
+
 void display_assertion(Bool assertion_status, char *message)
 {
   if (assertion_status)

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "assert.h"
 #include "../array.h"
 #include "../array_void.h"
@@ -16,6 +17,13 @@ Bool is_even(int number)
 int add(int num1, int num2)
 {
   return num1 + num2;
+}
+
+Object square_void(Object data)
+{
+  int *square = malloc(sizeof(int));
+  *square = *(Int_ptr)data * *(Int_ptr)data;
+  return square;
 }
 
 void test_map(void)
@@ -208,11 +216,27 @@ void test_reduce(void)
   destroy_array(numbers_6);
 }
 
+Bool assert_int(Object data_1, Object data_2)
+{
+  return *(Int_ptr)data_1 == *(Int_ptr)data_2;
+}
+
+void test_map_void(void)
+{
+  printf("map_void\n");
+
+  ArrayVoid_ptr numbers_1 = create_void_array(0);
+  ArrayVoid_ptr actual_1 = map_void(numbers_1, &square_void);
+  char message[] = "should give empty array for empty array given";
+  display_assertion(assert_array_void(actual_1, numbers_1, &assert_int), message);
+}
+
 int main(void)
 {
   test_map();
   test_filter();
   test_reduce();
+  test_map_void();
   display_passing_count();
   return 0;
 }
