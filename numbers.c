@@ -125,6 +125,7 @@ void perform_array_void_methods(void)
   destroy_void_array(mapped);
   destroy_void_array(new_void_array);
   destroy_void_array(alphabets);
+  free(sum);
 }
 
 int main(void)
