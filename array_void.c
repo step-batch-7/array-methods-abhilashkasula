@@ -66,3 +66,14 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
 
   return create_void_array_from(filtered, length);
 }
+
+Object reduce_void(ArrayVoid_ptr src, Object context, ReducerVoid reducer)
+{
+  for (int i = 0; i < src->length; i++)
+  {
+    // printf("%d %d", *(Int_ptr)context, *(Int_ptr)src->array[i])
+    context = (*reducer)(context, src->array[i]);
+  }
+
+  return context;
+}

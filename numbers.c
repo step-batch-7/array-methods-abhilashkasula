@@ -50,6 +50,12 @@ Bool is_letter_abc(Object data)
   return False;
 }
 
+Object add_void(Object context, Object data)
+{
+  *(Int_ptr)context = *(Int_ptr)context + *(Int_ptr)data;
+  return context;
+}
+
 Object create_int(int value)
 {
   int *number = malloc(sizeof(int));
@@ -112,7 +118,13 @@ void perform_array_void_methods(void)
   display_void_array(filtered_numbers, &display_int);
   display_void_array(filtered_alphabets, &display_char);
 
+  Object init = create_int(2);
+  Object sum = reduce_void(new_void_array, init, &add_void);
+  printf("Sum: %d\n", *(Int_ptr)sum);
+
   destroy_void_array(mapped);
+  destroy_void_array(filtered_alphabets);
+  destroy_void_array(filtered_numbers);
 }
 
 int main(void)
