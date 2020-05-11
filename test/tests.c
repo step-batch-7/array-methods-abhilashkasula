@@ -269,7 +269,7 @@ void test_reduce(void)
   destroy_array(numbers_6);
 }
 
-void display_char(void *data)
+void display_char(Object data)
 {
   printf("%c ", *(Char_ptr)data);
 }

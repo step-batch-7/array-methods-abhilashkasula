@@ -7,7 +7,7 @@ ArrayVoid_ptr create_void_array(int length)
 {
   ArrayVoid_ptr new_void_array = malloc(sizeof(ArrayVoid));
   new_void_array->length = length;
-  new_void_array->array = malloc(sizeof(void *) * length);
+  new_void_array->array = malloc(sizeof(Object) * length);
   return new_void_array;
 }
 
